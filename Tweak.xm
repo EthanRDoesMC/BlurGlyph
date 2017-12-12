@@ -7,8 +7,9 @@
 static NSArray *activeThemes;
 
 %hook SBIconImageView
-
-%property (nonatomic,retain) UIImageView *fingalAnimatedIconView; // Need to use our own image view as the icon image view messes stuff up
+// A simple control f will keep the names consistent
+// if referencing the tweak by name use '
+%property (nonatomic,retain) UIImageView *blurglyphAnimatedIconView; // Need to use our own image view as the icon image view messes stuff up
 
 - (void)setIcon:(SBIcon *)icon location:(int)location animated:(BOOL)animated {
 	%orig;
@@ -18,7 +19,7 @@ static NSArray *activeThemes;
 	// get the highest priority theme for this icon
 	NSString *themeUsedForThisIcon = @"";
 	for(NSString *activeTheme in activeThemes) {
-		NSString *gifDir = [NSString stringWithFormat:@"/var/mobile/Library/Fingal/%@/Icons/%@.gif",activeTheme,icon.nodeIdentifier];
+		NSString *gifDir = [NSString stringWithFormat:@"/var/mobile/Library/blurglyph/%@/Icons/%@.gif",activeTheme,icon.nodeIdentifier];
 		if([[NSFileManager defaultManager] fileExistsAtPath:gifDir])
 			themeUsedForThisIcon = activeTheme;
 	}
